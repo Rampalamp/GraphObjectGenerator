@@ -86,7 +86,8 @@ namespace GraphObjectGenerator
                                             graphType = "BooleanGraphType";
                                             break;
                                         case "DateTime":
-                                            //no change required
+                                            //no change required for type
+                                            graphType = "DateTimeGraphType";
                                             break;
                                         case "Int32":
                                             type = "int";
