@@ -1,5 +1,9 @@
 ﻿using GIBS.Module.Models.Activities;
+using GIBS.Module.Models.Clients;
 using GIBS.Module.Models.FastFile;
+using GIBS.Module.Models.Generic;
+using GIBS.Module.Models.MDI;
+using GIBS.Module.Models.Staff;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +19,7 @@ namespace GraphObjectGenerator
         static void Main(string[] args)
         {
             //Set desired object type to generate files for.
-            Type objType = typeof(FastFileLineItem);
+            Type objType = typeof(Availability);
             //save to desktop
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             //4 files needed, 1 model file, 1 graph object, 1 repo, 1 interace repo
@@ -88,6 +92,9 @@ namespace GraphObjectGenerator
                                         case "DateTime":
                                             //no change required for type
                                             graphType = "DateTimeGraphType";
+                                            break;
+                                        case "TimeSpan":
+                                            graphType = "TimeSpanSecondsGraphType";
                                             break;
                                         case "Int32":
                                             type = "int";
@@ -250,7 +257,7 @@ namespace GraphObjectGenerator
             sb.AppendLine(String.Format("Description = \"The unique identifier of the {0}.\",", objectName));
             sb.AppendLine("}),");
             sb.AppendLine(String.Format("resolve: context => {1}Repository.Get{0}(", objectName, lowerVariant));
-            sb.AppendLine("context.GetArgument(\"id\", defaultValue: new Guid(\"00000000 - 0000 - 0000 - 0000 - 000000000000\")),");
+            sb.AppendLine("context.GetArgument(\"id\", defaultValue: new Guid(\"00000000-0000-0000-0000-000000000000\")),");
             sb.AppendLine("context.CancellationToken));");
             sb.AppendLine("*/");
             //connection call for list of objects
